@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { Trash2, ListTodo } from "lucide-react";
 
 type TodoItemProps = {
   id: string;
@@ -17,6 +17,7 @@ export function TodoItem({ id, title, complete, toggleTodo, deleteTodo }: TodoIt
   return (
     <li className="w-full flex items-center justify-between p-4 border rounded-md border-slate-700">
       <div className="flex gap-1  items-center ">
+      <ListTodo className="mr-2 text-slate-500 " size={24} />
         <input
           id={id}
           type="checkbox"
