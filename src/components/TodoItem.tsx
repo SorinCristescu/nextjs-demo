@@ -1,6 +1,7 @@
 "use client";
 
 import { Trash2, ListTodo } from "lucide-react";
+import { format, parseISO } from "date-fns";
 
 type TodoItemProps = {
   id: string;
@@ -8,16 +9,26 @@ type TodoItemProps = {
   complete: boolean;
   toggleTodo: (id: string, complete: boolean) => void;
   deleteTodo: (id: string) => void;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-export function TodoItem({ id, title, complete, toggleTodo, deleteTodo }: TodoItemProps) {
-    const handleDelete = () => {
-        deleteTodo(id)
-    }
+export function TodoItem({
+  id,
+  title,
+  complete,
+  createdAt,
+  updatedAt,
+  toggleTodo,
+  deleteTodo,
+}: TodoItemProps) {
+  const handleDelete = () => {
+    deleteTodo(id);
+  };
   return (
     <li className="w-full flex items-center justify-between p-4 border rounded-md border-slate-700">
       <div className="flex gap-1  items-center ">
-      <ListTodo className="mr-2 text-slate-500 " size={24} />
+        <ListTodo className="mr-2 text-slate-500 " size={24} />
         <input
           id={id}
           type="checkbox"
@@ -33,12 +44,18 @@ export function TodoItem({ id, title, complete, toggleTodo, deleteTodo }: TodoIt
         </label>
       </div>
       <div className="flex items-center">
-      <p className="mr-2 text-xs text-slate-500">{complete ? "completed" : ""}</p>
-      <button onClick={handleDelete} className="bg-transparent rounded-md px-2 py-2 outline-none hover:bg-slate-700">
-        <Trash2 className="text-slate-300 " size={14} />
-      </button>
+        <p className="mr-2 text-xs text-slate-500">
+          {complete
+            ? `completed at ${format(updatedAt, "dd.MM.yyyy hh:mm:ss")}`
+            : `created at ${format(createdAt, "dd.MM.yyyy hh:mm:ss")}`}
+        </p>
+        <button
+          onClick={handleDelete}
+          className="bg-transparent rounded-md px-2 py-2 outline-none hover:bg-slate-700"
+        >
+          <Trash2 className="text-slate-300 " size={14} />
+        </button>
       </div>
- 
     </li>
   );
 }
