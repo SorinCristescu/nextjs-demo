@@ -38,13 +38,18 @@ export default async function Home() {
         </Link>
       </header>
       <ul className="space-y-4">
-        {todos.map((todo) => (
+        {todos.length ? todos.map((todo) => (
           <TodoItem 
             key={todo.id} 
             {...todo} 
             toggleTodo={toggleTodo}
             deleteTodo={deleteTodo} />
-        ))}
+        )) : (
+          <div className="mt-20 flex flex-col items-center justify-center">
+            <p className="text-slate-500 text-md align-center">Your todos list is empty.</p>
+            <p className="text-slate-500 text-md align-center">Please add a todo!</p>
+          </div>
+        )}
       </ul>
     </>
   );
